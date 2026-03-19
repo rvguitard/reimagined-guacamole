@@ -38,38 +38,51 @@ export default function ExportPanel({ tree }: { tree: LayoutNode | null }) {
   }
 
   return (
-    <div className="stack">
-      <h2 className="section-title">4. Export HTML/CSS</h2>
+    <div className="flex flex-col gap-4">
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Export
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          HTML and CSS generated from the same validated layout tree.
+        </p>
+      </div>
 
-      <div className="split-export">
-        <div className="export-card">
-          <div className="export-card-header">
-            <p className="label">HTML</p>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="flex flex-col gap-2 rounded-xl border border-slate-200 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-medium text-slate-700">HTML</p>
             <button
-              className="ghost-button"
+              className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={() => handleCopy(exported.html, "html")}
               disabled={!exported.html}
+              type="button"
             >
               Copy HTML
             </button>
           </div>
-          <div className="copy-status">{getStatusMessage("html")}</div>
-          <div className="code-block">{exported.html || "No HTML yet."}</div>
+          <div className="text-xs text-slate-500">{getStatusMessage("html")}</div>
+          <div className="overflow-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+            {exported.html || "No HTML yet."}
+          </div>
         </div>
 
-        <div className="export-card">
-          <div className="export-card-header">
-            <p className="label">CSS</p>
+        <div className="flex flex-col gap-2 rounded-xl border border-slate-200 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-medium text-slate-700">CSS</p>
             <button
-              className="ghost-button"
+              className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={() => handleCopy(exported.css, "css")}
               disabled={!exported.css}
+              type="button"
             >
               Copy CSS
             </button>
           </div>
-          <div className="copy-status">{getStatusMessage("css")}</div>
-          <div className="code-block">{exported.css || "No CSS yet."}</div>
+          <div className="text-xs text-slate-500">{getStatusMessage("css")}</div>
+          <div className="overflow-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+            {exported.css || "No CSS yet."}
+          </div>
         </div>
       </div>
     </div>

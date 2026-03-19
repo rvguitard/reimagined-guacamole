@@ -45,15 +45,23 @@ function renderNode(node: LayoutNode, key: string): JSX.Element {
 
 export default function PreviewPane({ tree, error }: Props) {
   return (
-    <div className="stack">
-      <h2 className="section-title">3. Live Preview</h2>
+    <div className="flex h-full flex-col gap-4">
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Preview
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          Rendered directly from the validated layout tree.
+        </p>
+      </div>
+
       {error ? (
-        <div className="error-state">
-          <p>Preview unavailable because the layout is invalid.</p>
+        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          Preview unavailable because the layout is invalid.
         </div>
       ) : (
-        <div className="preview-canvas">
-          {tree ? renderNode(tree, "root") : <p>No preview data available.</p>}
+        <div className="flex-1 rounded-xl border border-slate-200 bg-slate-50 p-4 text-slate-900 shadow-inner">
+          {tree ? renderNode(tree, "root") : <p className="text-sm text-slate-500">No preview data available.</p>}
         </div>
       )}
     </div>

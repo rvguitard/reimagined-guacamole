@@ -1,5 +1,6 @@
 # AI Webflow Mini
 
+A minimal prototype of an AI-to-Webflow-safe section builder built with Next.js App Router, TypeScript, Tailwind utility classes (via CDN for this prototype), and Zod.
 A minimal prototype of an AI-to-Webflow-safe section builder built with Next.js App Router, TypeScript, CSS, and Zod.
 
 ## Goal
@@ -12,6 +13,7 @@ Turn a natural-language prompt into a safe structured layout tree that can be pr
 - strict zod schema validation
 - JSON tree viewer
 - live preview
+- minimal Tailwind-styled UI
 - HTML/CSS export
 - copy HTML button
 - copy CSS button
