@@ -6,7 +6,6 @@ import PreviewPane from "@/components/PreviewPane";
 import TreeView from "@/components/TreeView";
 import ExportPanel from "@/components/ExportPanel";
 import { demoPrompt, starterTree } from "@/lib/demoData";
-import { generateLayoutFromPrompt } from "@/lib/generateLayoutFromPrompt";
 import { layoutNodeSchema } from "@/lib/schema";
 import type { LayoutNode } from "@/lib/types";
 
@@ -32,8 +31,32 @@ export default function HomePage() {
     setError(null);
 
     try {
-      const nextTree = generateLayoutFromPrompt(prompt);
-      const result = layoutNodeSchema.safeParse(nextTree);
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const message =
+          typeof data?.error === "string"
+            ? data.error
+            : "Failed to generate layout.";
+        const issues = Array.isArray(data?.issues)
+          ? ` ${data.issues
+              .map((issue: { message?: string }) => issue.message)
+              .filter(Boolean)
+              .join(", ")}`
+          : "";
+        setError(`${message}${issues}`);
+        return;
+      }
+
+      const result = layoutNodeSchema.safeParse(data);
 
       if (!result.success) {
         setError(result.error.issues.map((issue) => issue.message).join(", "));
@@ -62,7 +85,7 @@ export default function HomePage() {
               </h1>
             </div>
             <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-500">
-              GitHub Pages ready
+              Mocked generator
             </div>
           </div>
           <p className="max-w-3xl text-sm leading-6 text-slate-600">
