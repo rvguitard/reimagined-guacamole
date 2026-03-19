@@ -1,14 +1,13 @@
 # AI Webflow Mini
 
 A minimal prototype of an AI-to-Webflow-safe section builder built with Next.js App Router, TypeScript, Tailwind utility classes (via CDN for this prototype), and Zod.
-A minimal prototype of an AI-to-Webflow-safe section builder built with Next.js App Router, TypeScript, CSS, and Zod.
 
 ## Goal
 Turn a natural-language prompt into a safe structured layout tree that can be previewed and exported.
 
 ## Features
 - prompt input
-- mocked generation route
+- in-browser mocked generation (static-export friendly)
 - `generateLayoutFromPrompt(prompt: string)` abstraction
 - strict zod schema validation
 - JSON tree viewer
@@ -49,6 +48,16 @@ npm install
 npm run dev
 ```
 
+## Deploy to GitHub Pages
+This prototype is configured for static export so it can be published on GitHub Pages.
+
+```bash
+npm install
+npm run build
+```
+
+The exported static site will be generated in `out/`. Publish that directory with GitHub Pages or a GitHub Actions Pages workflow.
+
 ## Mock prompt examples
 Try these prompts:
 - `Create a dark hero section with a large heading, paragraph, and rounded button`
@@ -56,7 +65,6 @@ Try these prompts:
 - `Create a feature section with headline, paragraph, and CTA`
 
 ## Architecture
-- `app/api/generate/route.ts` – API entry point
 - `lib/generateLayoutFromPrompt.ts` – mocked generator abstraction for future AI integration
 - `lib/schema.ts` – strict zod schema
 - `lib/types.ts` – TypeScript node model
